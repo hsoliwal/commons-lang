@@ -1532,6 +1532,10 @@ public class StringUtils {
         if (isEmpty(str)) {
             return 0;
         }
+        if (str instanceof String) {
+            // M3JDK: counting has one implementation, in java.lang.String.
+            return ((String) str).countMatches(ch);
+        }
         int count = 0;
         // We could also call str.toCharArray() for faster lookups but that would generate more garbage.
         for (int i = 0; i < str.length(); i++) {
@@ -3612,6 +3616,10 @@ public class StringUtils {
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
     public static boolean isBlank(final CharSequence cs) {
+        if (cs instanceof String) {
+            // M3JDK: the white space test of a String has one implementation, in java.lang.String.
+            return ((String) cs).isBlank();
+        }
         final int strLen = length(cs);
         for (int i = 0; i < strLen; i++) {
             if (!Character.isWhitespace(cs.charAt(i))) {
